@@ -12,6 +12,8 @@ namespace ConfigDumpFileIO
         [DllExport("_RVExtension@12", CallingConvention = CallingConvention.Winapi)]
         public static void RVExtension(StringBuilder output, int outputSize, [MarshalAs(UnmanagedType.LPStr)] string input)
         {
+            byte[] bytes = Encoding.Default.GetBytes(input);
+            input = Encoding.UTF8.GetString(bytes);
             var colonIndex = input.IndexOf(":");
             var operationType = input.Substring(0, colonIndex);
             var stringToWrite = input.Substring(colonIndex + 1, input.Length - colonIndex - 1);

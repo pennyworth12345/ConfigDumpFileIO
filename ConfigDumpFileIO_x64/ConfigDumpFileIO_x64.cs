@@ -21,19 +21,21 @@ namespace ConfigDumpFileIO_x64
             {
                 string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
                 string filePath = Path.Combine(assemblyFolder, stringToWrite);
+                outputFile?.Close();
                 outputFile = new StreamWriter(filePath);
                 output.Append("true");
                 return;
             }
             else if (operationType.Equals("write"))
             {
-                outputFile.WriteLine(stringToWrite);
+                outputFile?.WriteLine(stringToWrite);
                 output.Append("true");
                 return;
             }
             else if (operationType.Equals("close"))
             {
-                outputFile.Close();
+                outputFile?.Close();
+                outputFile = null;
                 output.Append("true");
                 return;
             }

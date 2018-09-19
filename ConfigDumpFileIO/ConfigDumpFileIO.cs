@@ -29,14 +29,14 @@ namespace ConfigDumpFileIO
             else if(operationType.Equals("write"))
             {
                 outputFile?.WriteLine(stringToWrite);
-                output.Append("true");
+                output.Append(outputFile != null ? "true" : "false");
                 return;
             }
             else if(operationType.Equals("close"))
             {
+                output.Append(outputFile != null ? "true" : "false");
                 outputFile?.Close();
                 outputFile = null;
-                output.Append("true");
                 return;
             }
 

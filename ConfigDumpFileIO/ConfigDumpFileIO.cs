@@ -9,7 +9,11 @@ namespace ConfigDumpFileIO
     public class DLLEntry
     {
         static StreamWriter outputFile;
-        [DllExport("_RVExtension@12", CallingConvention = CallingConvention.Winapi)]
+        #if WIN64
+            [DllExport("RVExtension", CallingConvention = CallingConvention.Winapi)]
+        #else
+            [DllExport("_RVExtension@12", CallingConvention = CallingConvention.Winapi)]
+        #endif
         public static void RVExtension(StringBuilder output, int outputSize, [MarshalAs(UnmanagedType.LPStr)] string input)
         {
             byte[] bytes = Encoding.Default.GetBytes(input);
